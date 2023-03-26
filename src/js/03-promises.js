@@ -19,7 +19,7 @@ function createPromise(position, delay) {
       } else {
         reject({ position, delay });
       }
-    }, (delayTime += stepValue));
+    }, (delayTime));
 
   })
 }
@@ -29,16 +29,17 @@ function onSubmit(evt) {
   delayTime = Number(firstdelay.value);
   stepValue = Number(delayStep.value);
   promiseCount = Number(amount.value);
-  for (let i = 1; i < promiseCount; i+=1) {
+  for (let i = 1; i <= promiseCount; i+=1) {
     createPromise(i, delayTime)
       .then(({ position, delay }) => {
       Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-      });
+      }),
+    (delayTime += stepValue)
   }
-  refs.formEl.reset();
+  inputForm.reset();
 }
 
 inputForm.addEventListener('submit', onSubmit)

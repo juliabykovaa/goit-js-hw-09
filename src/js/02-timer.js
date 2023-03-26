@@ -23,7 +23,6 @@ const options = {
       if (selectedDate < Date.now()) {
           startButton.disabled = true;
           window.alert("Please choose a date in the future")
-          con
       } else {
           startButton.disabled = false;
           return
